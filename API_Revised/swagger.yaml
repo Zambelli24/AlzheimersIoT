@@ -1,0 +1,7 @@
+---
+swagger: "2.0"
+info:
+  description: "The AlzheimersIoT API is intended to serve as a filtration system that sits infront of a database. The API serves as an interface between data collection from patients, the storage of that data, and the viewing of that data by caregivers or family members."
+  version: "2.0.0"
+  title: "AlzheimersIot API"
+paths:
