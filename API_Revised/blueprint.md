@@ -29,13 +29,13 @@ View data from a specific device.
 
 This group contains the keys for the compatible devices with our system.
 
-## Key Collection [/keys]
+## Keys Collection [/keys]
 
 ### List All Enabled Keys [GET]
 
 This method has no parameters.
 
-### Enable a Key [POST]
+### Enable a Keys [POST]
 
 This method allows you to activate a key for a device compatible with the system.
 
