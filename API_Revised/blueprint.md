@@ -4,28 +4,28 @@ FORMAT: 1A
 
 The AlzheimersIoT API acts as a filter sitting infront of a database that contains patient information for caretakers, and family to view the health state of a person who may have Alzheimers. This API allows communication between the patient and the caretakers.
 
-# Group Patient Data
+# Patient Data
 
 This group contains all the data for a specified patient that is stored in the database.
 
-## Patient Data Collection [/patient data]
+## Patient Data Collection [/data]
 
 ### Add Patient Data [POST]
 
-Upload new data into the database
+Upload new data into the database without returning anything.
 
-+ key (string) - device that the data came from
-+ time (int?) - time that the data was recorded
-+ json object - the data
++ key (string) - Activated device that the data came from
++ time (string) - Time that the data was recorded
++ json object - Data from the activated device
 
 ### View Patient Data [GET]
 
-View data from a specific device.
+View data from a specific device as a json format with the timestamp.
 
-+ key (string) - device you want the data from
-+ time (int?) - time you want the data from
++ key (string) - Activated device you want the data from
++ time (string) - Time you want the data from i.e. all data within the past << 2 minutes, 10 minutes, 60 minutes, etc. >>
 
-# Group Keys
+# Keys
 
 This group contains the keys for the compatible devices with our system.
 
@@ -33,10 +33,11 @@ This group contains the keys for the compatible devices with our system.
 
 ### List All Enabled Keys [GET]
 
-This method has no parameters.
+Returns all of the enabled devices as a list of strings.
 
 ### Enable a Key [POST]
 
-This method allows you to activate a key for a device compatible with the system.
+Initiate a connection between a new device and the system.
 
-+ key (string) - the key for the device you want to enable
++ key (string) - The key for the device you want to initiate
+
