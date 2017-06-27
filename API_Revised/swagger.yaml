@@ -1,7 +1,194 @@
----
-swagger: "2.0"
+swagger: '2.0'
 info:
-  description: "The AlzheimersIoT API is intended to serve as a filtration system that sits infront of a database. The API serves as an interface between data collection from patients, the storage of that data, and the viewing of that data by caregivers or family members."
-  version: "2.0.0"
-  title: "AlzheimersIot API"
+  version: '1.0'
+  title: Data Collection API
+  description: 'TODO: Add a description'
+  license:
+    name: MIT
+    url: http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT
+host: url
+basePath: /
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
 paths:
+  /add_data:
+    post:
+      description: Upload new data into the database. The key, timestamp, and data are parameters.
+      summary: Add Data
+      tags:
+      - Data
+      operationId: Add Data
+      produces:
+      - application/json
+      parameters:
+      - name: key
+        in: query
+        required: true
+        type: string
+        description: Stream that the data is coming from.
+      - name: time
+        in: query
+        required: true
+        type: string
+        description: Time that the data was recorded.
+      - name: data
+        in: query
+        required: true
+        type: string
+        description: The actual data that is in the database.
+      - name: body
+        in: body
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        200:
+          description: ''
+          schema:
+            type: string
+        400:
+          description: ''
+          schema: {}
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /view_data_since:
+    get:
+      description: View data from a specific stream using a key and timestamp as parameters.
+      summary: View Data Since
+      tags:
+      - Data
+      operationId: View Data Since
+      produces:
+      - application/json
+      parameters:
+      - name: key
+        in: query
+        required: true
+        type: string
+        description: Stream that the data is coming from.
+      - name: time
+        in: query
+        required: true
+        type: string
+        description: The data returned will be from the time specified to the present time.
+      responses:
+        200:
+          description: ''
+          schema:
+            type: object
+        400:
+          description: ''
+          schema: {}
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /view_most_recent_data:
+    get:
+      description: Get the most recent piece of data in the databse using the key as a parameter.
+      summary: View Most Recent Data
+      tags:
+      - Data
+      operationId: View Most Recent Data
+      produces:
+      - application/json
+      parameters:
+      - name: key
+        in: query
+        required: true
+        type: string
+        description: Stream that the data is coming from.
+      responses:
+        200:
+          description: ''
+          schema:
+            type: object
+        400:
+          description: ''
+          schema: {}
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /keys_list:
+    get:
+      description: Returns all of the enabled devices as a list of strings. There are no parameters.
+      summary: List All Enabled Keys
+      tags:
+      - Keys
+      operationId: List All Enabled Keys
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: ''
+          schema:
+            type: string
+      x-unitTests:
+      - request:
+          method: GET
+          uri: /keys_list
+        expectedResponse:
+          x-allowExtraHeaders: true
+          x-bodyMatchMode: RAW
+          x-arrayOrderedMatching: false
+          x-arrayCheckCount: false
+          x-matchResponseSchema: true
+          headers:
+            Content-Type: text/plain
+          body: '"The list of all enabled keys"'
+        x-testShouldPass: true
+        x-testEnabled: true
+        x-testName: List All Enabled Keys1
+        x-testDescription: Returns all of the enabled devices as a list of strings. There are no parameters.
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+  /add_key/:
+    post:
+      description: Initiate a connection between a stream and the system using the key as a parameter.
+      summary: Enable a Key
+      tags:
+      - Keys
+      operationId: Enable a Key
+      produces:
+      - application/json
+      parameters:
+      - name: key
+        in: query
+        required: true
+        type: string
+        description: Stream that is activated.
+      - name: body
+        in: body
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        200:
+          description: ''
+          schema:
+            type: string
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
