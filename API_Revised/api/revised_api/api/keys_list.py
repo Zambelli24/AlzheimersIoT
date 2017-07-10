@@ -9,7 +9,7 @@ from .database_wrapper import DatabaseWrapper
 
 class KeysList(Resource):
 
-    def get():
+    def get(self):
 
         db = DatabaseWrapper()
 

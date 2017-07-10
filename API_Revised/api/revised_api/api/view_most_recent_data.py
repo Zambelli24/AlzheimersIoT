@@ -14,6 +14,7 @@ class ViewMostRecentData(Resource):
 
         db = DatabaseWrapper()
 
-        checked_key = db.check_key_in_enabled_list(key)
+        if not db.check_key_is_enabled(key):
+            raise Exception('The specified key does not exist')
 
-        return db.get_most_recent_data(checked_key)
+        return db.get_most_recent_data(key)

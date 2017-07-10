@@ -6,7 +6,6 @@ import flask_restful as resful
 
 from .routes import routes
 from .validators import security
-from .api.database_wrapper import DatabaseWrapper
 
 @security.scopes_loader
 def current_scopes():

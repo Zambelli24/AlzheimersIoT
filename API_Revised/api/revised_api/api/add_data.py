@@ -9,6 +9,7 @@ from .. import schemas
 import time
 from .helper_methods import HelperMethods
 from .database_wrapper import DatabaseWrapper
+import json
 
 class AddData(Resource):
 
@@ -16,9 +17,12 @@ class AddData(Resource):
 
         db = DatabaseWrapper()
 
-        checked_key = db.check_key_in_enabled_list(key)
+        if not db.check_key_is_enabled(key):
+            raise Exception('The specified key does not exist')
 
         checked_time = HelperMethods.check_time(timestamp)
+
+        data = json.loads(data)
 
         db.post_new_data(key, data, timestamp)
 

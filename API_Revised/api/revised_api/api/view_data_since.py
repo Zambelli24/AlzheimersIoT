@@ -12,10 +12,11 @@ class ViewDataSince(Resource):
 
     def get(key, timestamp):
         db = DatabaseWrapper()
-        checked_key = db.check_key_in_enabled_list(key)
-        checked_time = int(HelperMethods.check_time(timestamp))
 
-        ret_list = []
+        if not db.check_key_is_enabled(key):
+            raise Exception('The specified key does not exist')
 
-        return db.get_data_since(checked_key, checked_time)
+        checked_time = HelperMethods.check_time(timestamp)
+
+        return db.get_data_since(key, checked_time)
 
