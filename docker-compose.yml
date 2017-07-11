@@ -23,8 +23,8 @@ services:
 
 # Services
   db:
-    image: mangoraft/mongodb-arm
-    #build: ./MongoDB
+    #image: mangoraft/mongodb-arm
+    build: ./MongoDB
     volumes:
       - db_data:/data/db
 
@@ -39,7 +39,7 @@ services:
 
   event_sender:
     build: ./EventSender
-    #restart: 'always'
+    restart: 'always'
     depends_on:
       - api
     links:
