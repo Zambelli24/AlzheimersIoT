@@ -23,8 +23,8 @@ services:
 
 # Services
   db:
-    image: mangoraft/mongodb-arm
-    #build: ./MongoDB
+    #image: mangoraft/mongodb-arm
+    build: ./MongoDB
     volumes:
       - db_data:/data/db
 
@@ -33,13 +33,13 @@ services:
       - db
     links:
       - db
-    build: ./API
+    build: ./API_Revised/api/revised_api
     ports:
       - "8080:8080"
 
   event_sender:
     build: ./EventSender
-    #restart: 'always'
+    restart: 'always'
     depends_on:
       - api
     links:

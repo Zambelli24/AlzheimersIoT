@@ -1,14 +1,10 @@
-FROM resin/rpi-raspbian:wheezy
+FROM resin/raspberry-pi3-python:3.6-slim
 
-RUN apt-get install mongodb-server
+RUN apt-get install mongodb
 
-# add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
-RUN groupadd -r mongodb && useradd -r -g mongodb mongodb \
-    && mkdir -p /data/db
+RUN mkdir -p /data/db
 
 WORKDIR /usr/local/bin
-
-COPY mongod .
 
 EXPOSE 27017
 CMD ["mongod"]
