@@ -1,0 +1,27 @@
+authtoken: waUuKEMrmKGCWKPVjPzY_5o6oGiZ8co9pABzSi5Biu
+
+tunnels:
+    api:
+        proto: http
+        addr: 8080
+        subdomain: apialzheimersiot
+
+    journal:
+        proto: http
+        addr: 8000
+        subdomain: journalalzheimersiot
+
+    memory_game:
+        proto: http
+        addr: 5000
+        subdomain: memorygamealzheimersiot
+
+    caregiver:
+        proto: http
+        addr: 5001
+        subdomain: caregiveralzheimersiot
+
+    schedulergui:
+        proto: http
+        addr: 3000
+        subdomain: schedulerguialzheimersiot
