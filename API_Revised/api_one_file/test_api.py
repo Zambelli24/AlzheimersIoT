@@ -16,14 +16,14 @@ class RevisedAPITestCase(unittest.TestCase):
 
     def test_no_keys(self):
         no_keys = requests.get('http://localhost:5000/keys_list')
-        assert no_keys.text == str([])
+        assert ast.literal_eval(no_keys.text) == []
 
     def test_add_key(self):
         one_key = requests.post('http://localhost:5000/add_key', data={'key': 'fitbit'})
         assert 'Key successfully enabled' == one_key.text
 
         key_exists = requests.get('http://localhost:5000/keys_list')
-        assert 'fitbit' in key_exists.text
+        assert ['fitbit'] == ast.literal_eval(key_exists.text)
 
     def test_add_key_incorrect_format(self):
         url = 'http://localhost:5000/add_key'
@@ -51,28 +51,31 @@ class RevisedAPITestCase(unittest.TestCase):
         key = {'key': 'fitbit'}
         requests.post('http://localhost:5000/add_key', data=key)
         key_exists = requests.get('http://localhost:5000/keys_list')
-        assert 'fitbit' in key_exists.text
+        assert ['fitbit'] == ast.literal_eval(key_exists.text)
 
         no_add = requests.post('http://localhost:5000/add_key', data=key)
         assert no_add.text == "The specified key has already been enabled"
         key_exists = requests.get('http://localhost:5000/keys_list')
-        assert 'fitbit' in key_exists.text
+        assert ['fitbit'] == ast.literal_eval(key_exists.text)
 
     def test_add_multiple_keys(self):
         key = {'key': 'fitbit'}
         requests.post('http://localhost:5000/add_key', data=key)
         key_exists = requests.get('http://localhost:5000/keys_list')
-        assert 'fitbit' in key_exists.text
+        assert 'fitbit' in ast.literal_eval(key_exists.text)
 
         key2 = {'key': 'smartwatch'}
         requests.post('http://localhost:5000/add_key', data=key2)
         key_exists = requests.get('http://localhost:5000/keys_list')
-        assert 'smartwatch' in key_exists.text
+        assert 'fitbit' in ast.literal_eval(key_exists.text)
+        assert 'smartwatch' in ast.literal_eval(key_exists.text)
 
         key3 = {'key': 'apple_watch'}
         requests.post('http://localhost:5000/add_key', data=key3)
         key_exists = requests.get('http://localhost:5000/keys_list')
-        assert 'apple_watch' in key_exists.text
+        assert 'fitbit' in ast.literal_eval(key_exists.text)
+        assert 'smartwatch' in ast.literal_eval(key_exists.text)
+        assert 'apple_watch' in ast.literal_eval(key_exists.text)
 
     def test_add_and_get_data_no_key(self):
         data = {'key': 'fitbit', 'time': '2017-07-05T06:37:55', 'data': 'something'}
@@ -97,20 +100,20 @@ class RevisedAPITestCase(unittest.TestCase):
         assert 'Data uploaded successfully' == new_data.text
 
         view_last = requests.get('http://localhost:5000/view_most_recent_data', data={'key':'fitbit'})
-        assert str(time_and_data) == view_last.text
+        assert time_and_data == ast.literal_eval(view_last.text)
 
         data = {'key': 'fitbit', 'time': '2017-03-15T03'}
         view_all = requests.get('http://localhost:5000/view_data_since', data=data)
-        assert str(time_and_data) == view_all.text
+        assert time_and_data == ast.literal_eval(view_all.text)
 
     def test_get_data_returns_empty_list(self):
         requests.post('http://localhost:5000/add_key', data={'key': 'fitbit'})
         data = {'key': 'fitbit', 'time': '2017-02-02T05'}
         no_data = requests.get('http://localhost:5000/view_data_since', data=data)
-        assert no_data.text == str({})
+        assert ast.literal_eval(no_data.text) == {}
 
         no_recent_data = requests.get('http://localhost:5000/view_most_recent_data', data={'key': 'fitbit'})
-        assert no_recent_data.text == str({})
+        assert ast.literal_eval(no_data.text) == {}
 
     def test_good_format_datetime(self):
         requests.post('http://localhost:5000/add_key', data={'key': 'fitbit'})
@@ -168,10 +171,10 @@ class RevisedAPITestCase(unittest.TestCase):
         requests.post('http://localhost:5000/add_data', data=data)
 
         view_last = requests.get('http://localhost:5000/view_most_recent_data', data={'key': 'fitbit'})
-        assert view_last.text == str(comp_var)
+        assert ast.literal_eval(view_last.text) == comp_var
 
         view_all = requests.get('http://localhost:5000/view_data_since', data={'key': 'fitbit', 'time': '2017-01-01T01'})
-        assert view_all.text == str(comp_var)
+        assert ast.literal_eval(view_all.text) == comp_var
 
     def test_add_multiple_data_points(self):
         requests.post('http://localhost:5000/add_key', data={'key': 'fitbit'})
