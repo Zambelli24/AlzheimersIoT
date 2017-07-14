@@ -22,19 +22,20 @@ services:
 
 
 # Services
+  db:
+    #image: mangoraft/mongodb-arm
+    build: ./MongoDB
+    volumes:
+      - db_data:/data/db
+
   api:
     depends_on:
       - db
     links:
       - db
-    build: ./API
+    build: ./API_Revised/api/revised_api
     ports:
       - "8080:8080"
-
-  db:
-    image: mongo
-    volumes:
-      - db_data:/data/db
 
   event_sender:
     build: ./EventSender
@@ -77,6 +78,11 @@ services:
   google_sender:
     build: ./GoogleSender
 
+# Home Assistant
+  hass:
+    image: lroguet/rpi-home-assistant
+    ports:
+      - "8123:8123"
 
 # This volume is used to persist data in the mongodb inbetween re-building the
 # containers (deploying a new version of the API)
