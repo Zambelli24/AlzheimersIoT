@@ -1,7 +1,5 @@
 Flask
-Jinja2
 jsonschema
-six
 pymongo
 flask_pymongo
 iso8601

@@ -7,7 +7,7 @@ import json
 class DatabaseWrapper():
 
     def __init__(self):
-        self.database = MongoClient('localhost', 27017)
+        self.database = MongoClient('172.19.0.6', 27017)
 
     def clear_database(self):
         self.database.availablekeys.keyslist.delete_many({})

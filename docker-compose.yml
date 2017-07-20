@@ -1,6 +1,6 @@
 # docker-compose.yml
 
-version: '2'
+version: '3'
 services:
 # Producers
   journal:
@@ -23,23 +23,23 @@ services:
 
 # Services
   db:
-    #image: mangoraft/mongodb-arm
     build: ./MongoDB
     volumes:
-      - db_data:/data/db
+      - /data/db
 
   api:
-    depends_on:
-      - db
+    #depends_on:
+    #  - db
     links:
       - db
-    build: ./API_Revised/api/revised_api
+    #build: ./API_Revised/api/revised_api
+    build: ./API_Revised/api_one_file
     ports:
       - "8080:8080"
 
   event_sender:
     build: ./EventSender
-    restart: 'always'
+    #restart: 'always'
     depends_on:
       - api
     links:
@@ -86,5 +86,5 @@ services:
 
 # This volume is used to persist data in the mongodb inbetween re-building the
 # containers (deploying a new version of the API)
-volumes:
-  db_data:
+#volumes:
+  #db_data:
