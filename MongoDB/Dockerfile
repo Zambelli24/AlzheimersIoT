@@ -9,4 +9,4 @@ RUN mkdir -p /data/db/
 RUN mongod --repair
 
 EXPOSE 27017
-CMD ["mongod", "--bind_ip", "127.0.0.1,172.19.0.6"]
+CMD ["mongod", "--bind_ip", "127.0.0.1,db"]
