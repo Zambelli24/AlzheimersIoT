@@ -95,12 +95,12 @@ services:
     build: ./GoogleSender
 
 # Home Assistant
-  hass:
-    depends_on:
-      - db
-    image: lroguet/rpi-home-assistant
-    ports:
-      - "8123:8123"
+#  hass:
+#    depends_on:
+#      - db
+#    image: lroguet/rpi-home-assistant
+#    ports:
+#      - "8123:8123"
 
 # This volume is used to persist data in the mongodb inbetween re-building the
 # containers (deploying a new version of the API)
