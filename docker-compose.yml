@@ -4,6 +4,8 @@ version: '3'
 services:
 # Producers
   journal:
+    depends_on:
+      - db
     build: ./GoogleHome/Actions/Journal
     links:
       - api
@@ -11,6 +13,8 @@ services:
       - "8000:80"
 
   memory_game:
+    depends_on:
+      - db
     build: ./Alexa/Skillsets/MemoryGame
     links:
       - api
@@ -28,8 +32,8 @@ services:
       - /data/db
 
   api:
-    #depends_on:
-    #  - db
+    depends_on:
+      - db
     links:
       - db
     #build: ./API_Revised/api/revised_api
@@ -38,6 +42,8 @@ services:
       - "8080:8080"
 
   event_sender:
+    depends_on:
+      - db
     build: ./EventSender
     #restart: 'always'
     depends_on:
@@ -49,6 +55,8 @@ services:
       - google_sender
 
   scheduler:
+    depends_on:
+      - db
     build: ./Scheduler
     ports:
       - "5050:5000"
@@ -59,6 +67,8 @@ services:
       - google_sender
 
   caregiver:
+    depends_on:
+      - db
     build: ./Alexa/Skillsets/Caregiver
     ports:
       - "5001:5000"
@@ -70,16 +80,24 @@ services:
 
 # Notifiers
   sms_sender:
+    depends_on:
+      - db
     build: ./SMSSender
 
   email_sender:
+    depends_on:
+      - db
     build: ./EmailSender
 
   google_sender:
+    depends_on:
+      - db
     build: ./GoogleSender
 
 # Home Assistant
   hass:
+    depends_on:
+      - db
     image: lroguet/rpi-home-assistant
     ports:
       - "8123:8123"
