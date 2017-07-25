@@ -3,15 +3,16 @@ from flask import Flask, render_template
 from flask_ask import Ask, statement, question, session
 import requests
 import time
+import ast
 
 app = Flask(__name__)
 ask = Ask(app, "/")
 noEndpointMsg = 'no endpoint exists'
 logging.getLogger("flask_ask").setLevel(logging.DEBUG)
-local_url = 'http://localhost:8080/api'
+local_url = 'http://localhost:8080'
 pegasus_ngrok_url = 'http://20d0fc48.ngrok.io/api'
 pegasus_url = 'pegasus.cs.moravian.edu/api'
-unified_docker = 'http://api:8080/api'
+unified_docker = 'http://api:8080'
 url_to_use = unified_docker
 questionMsg = 'Any other questions?'
 
@@ -91,10 +92,13 @@ def memGameTime(patient):
 @ask.intent("GetMemoryGameScoreIntent")
 def memGameScore(patient):
   memGameScoreMsg = patient
-  memGameScoreDictArray = getData('memoryGame')
+  r = requests.get('http://api:8080/view_most_recent_data', data={'key': 'memory_game'})
+  memGameScoreDictArray = ast.literal_eval(r.text)
   # data available: user(string), score(number), time(timestamp(ISO 8601 date))
-  if "score" in memGameScoreDictArray[0]:
-    memGameScoreMsg = memGameScoreMsg + ' last score for the memory Quiz was: ' + str(memGameScoreDictArray[0].get("score"))
+  if len(memGameScoreDictArray.values()) != 0:
+    memGameScoreList = list(memGameScoreDictArray.values())
+    memGameScore = ast.literal_eval(memGameScoreList[0])
+    memGameScoreMsg = memGameScoreMsg + ' last score for the memory Quiz was: ' + str(memGameScore.get("score"))
   else:
     memGameScoreMsg = 'There is no score for the last time ' + patient + ' took their memory quiz.'
   return question(memGameScoreMsg).reprompt(questionMsg)
