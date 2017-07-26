@@ -58,7 +58,6 @@ questionList = ["Please remember the word " + rand_word + ". Please respond with
                 'Earlier I asked you to remember a word. Can you please say that word for me?',
                 'Who was the first President of the United States?',
                 'Spell the word WORLD backwards.'
-                'Please recite the months backwards in order.'
                 ]
 
 # 'I would like you to count backward from 100 by sevens.'
@@ -73,6 +72,5 @@ answerList = [
     'no ifs ands or buts',
     rand_word,
     'George Washington',
-    'D L R O W',
-    'December November October September August July June May April March February January'
+    'D L R O W'
 ]

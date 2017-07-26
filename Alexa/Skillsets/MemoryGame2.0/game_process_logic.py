@@ -44,7 +44,7 @@ def quit_game():
     message = "The game is over. You answered "\
            + str(counter_dict.get('wins')) \
            + " out of " + str(counter_dict.get('rounds'))\
-           + " questions correct. "
+           + " questions correctly. "
     return message
 
 
@@ -70,21 +70,29 @@ def create_next_question():
 def pass_question():
     session.attributes["previous_question"]=""
     counter_dict['rounds'] += 1
-
-    output_message = render_template('passMessage')
+    if (counter_dict['rounds'] == 5):
+        output_message = render_template('end')
+    else:
+        output_message = render_template('passMessage')
     return output_message
 
 
 def lose():
     counter_dict['rounds'] += 1
-    continue_message = render_template('lose')
+    if (counter_dict['rounds'] == 5):
+        continue_message = render_template('end')
+    else:
+        continue_message = render_template('lose')
     return continue_message
 
 
 def win():
     counter_dict['wins'] += 1
     counter_dict['rounds'] += 1
-    continue_message = render_template('win')
+    if (counter_dict['rounds'] == 5):
+        continue_message = render_template('end')
+    else:
+        continue_message = render_template('win')
     return continue_message
 
 
