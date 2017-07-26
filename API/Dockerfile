@@ -1,7 +1,7 @@
 # Dockerfile (Node API)
 
 # Get a source container for Node.js
-FROM node:boron
+FROM resin/raspberrypi3-node:slim
 
 # Create the app directory
 RUN mkdir -p /usr/src/app

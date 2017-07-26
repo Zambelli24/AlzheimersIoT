@@ -1,9 +1,11 @@
 # docker-compose.yml
 
-version: '2'
+version: '3'
 services:
 # Producers
   journal:
+    depends_on:
+      - db
     build: ./GoogleHome/Actions/Journal
     links:
       - api
@@ -11,7 +13,9 @@ services:
       - "8000:80"
 
   memory_game:
-    build: ./Alexa/Skillsets/MemoryGame
+    depends_on:
+      - db
+    build: ./Alexa/Skillsets/MemoryGame2.0
     links:
       - api
     ports:
@@ -22,23 +26,26 @@ services:
 
 
 # Services
+  db:
+    build: ./MongoDB
+    volumes:
+      - /data/db
+
   api:
     depends_on:
       - db
     links:
       - db
-    build: ./API
+    #build: ./API_Revised/api/revised_api
+    build: ./API_Revised/api_one_file
     ports:
       - "8080:8080"
 
-  db:
-    image: mongo
-    volumes:
-      - db_data:/data/db
-
   event_sender:
+    depends_on:
+      - db
     build: ./EventSender
-    restart: 'always'
+    #restart: 'always'
     depends_on:
       - api
     links:
@@ -48,6 +55,8 @@ services:
       - google_sender
 
   scheduler:
+    depends_on:
+      - db
     build: ./Scheduler
     ports:
       - "5050:5000"
@@ -58,6 +67,8 @@ services:
       - google_sender
 
   caregiver:
+    depends_on:
+      - db
     build: ./Alexa/Skillsets/Caregiver
     ports:
       - "5001:5000"
@@ -69,16 +80,29 @@ services:
 
 # Notifiers
   sms_sender:
+    depends_on:
+      - db
     build: ./SMSSender
 
   email_sender:
+    depends_on:
+      - db
     build: ./EmailSender
 
   google_sender:
+    depends_on:
+      - db
     build: ./GoogleSender
 
+# Home Assistant
+#  hass:
+#    depends_on:
+#      - db
+#    image: lroguet/rpi-home-assistant
+#    ports:
+#      - "8123:8123"
 
 # This volume is used to persist data in the mongodb inbetween re-building the
 # containers (deploying a new version of the API)
-volumes:
-  db_data:
+#volumes:
+  #db_data:

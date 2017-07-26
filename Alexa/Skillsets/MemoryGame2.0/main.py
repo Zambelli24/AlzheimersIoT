@@ -36,9 +36,15 @@ def new_game():
     return question(welcome_msg)
 
 
+<<<<<<< HEAD
 @ask.intent("AnswerIntent", convert={'answer': str})
 def main_intent(answer):
     user_answer = answer
+=======
+@ask.intent("AnswerIntent", convert={'Answer': str})
+def main_intent(Answer):
+    user_answer = Answer
+>>>>>>> a25229ef56a9663c79b060e7c38a3f745cc0e94e
     new_msg, end = process_state(user_answer)
     if end == 0:
         return question(new_msg)

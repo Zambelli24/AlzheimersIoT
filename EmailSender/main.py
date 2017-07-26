@@ -6,8 +6,8 @@ from flask_mail import Mail, Message
 app =Flask(__name__)
 mail=Mail(app)
 
-USERNAME = 'mocojanetjohnson@gmail.com'
-PASSWORD = 'moraviancs2017'
+USERNAME = 'csdev@moravian.edu'
+PASSWORD = 'Mu[tubgWwoAuz3H6'
 
 app.config.update(
 MAIL_SERVER = 'smtp.gmail.com',
