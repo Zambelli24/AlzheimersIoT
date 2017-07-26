@@ -1,5 +1,4 @@
 import logging
-import datetime
 from sendAlert import *
 from gameProcessLogic import *
 from flask import Flask, render_template

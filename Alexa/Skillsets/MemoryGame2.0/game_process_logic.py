@@ -1,3 +1,4 @@
+from UploadAPI import *
 from question_answer import *
 from flask import render_template
 from flask_ask import session
@@ -36,6 +37,10 @@ def answer_response(user_answer):
 
 
 def quit_game():
+    user = 'test_user_one'
+    win = counter_dict.get('wins')
+    auth_token = "fake token"
+    UploadAPI(user, win, auth_token)
     message = "The game is over. You answered "\
            + str(counter_dict.get('wins')) \
            + " out of " + str(counter_dict.get('rounds'))\
