@@ -15,7 +15,7 @@ services:
   memory_game:
     depends_on:
       - db
-    build: ./Alexa/Skillsets/MemoryGame
+    build: ./Alexa/Skillsets/MemoryGame2.0
     links:
       - api
     ports:

@@ -33,7 +33,8 @@ def count_backwards():
 
 def get_random_word():
     list = []
-    file = open('/Users/adamhoward/Documents/summer/reminder_app/MemoryGame/lexicon.txt', 'r')
+    #file = open('/home/pi/AlzheimersIoT/Alexa/Skillsets/MemoryGame2.0/lexicon.txt', 'r')
+    file = open('/usr/src/MemoryGame2.0/lexicon.txt', 'r')
     for line in file:
         line = line.strip()
         list.append(line.lower())
