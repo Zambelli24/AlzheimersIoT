@@ -45,7 +45,6 @@ def get_random_word():
 
 remember_word = "uhh"
 
-america_list = ["Merica", "United States", "The United States of America", "America", "States", "Murica", "USA"]
 okay_list = ['okay', 'ok', 'OK']
 season = get_season()
 rand_word = get_random_word()
@@ -56,9 +55,10 @@ questionList = ["Please remember the word " + rand_word + ". Please respond with
                 'What is the month',
                 'What is the day of the week?',
                 'Repeat the phrase: No ifs ands or buts',
-                'Earlier I asked you to remember a noun. Can you please say that noun for me?',
+                'Earlier I asked you to remember a word. Can you please say that word for me?',
                 'Who was the first President of the United States?',
-                'What is the greatest country on this planet?',
+                'Spell the word WORLD backwards.'
+                'Please recite the months backwards in order.'
                 ]
 
 # 'I would like you to count backward from 100 by sevens.'
@@ -73,5 +73,6 @@ answerList = [
     'no ifs ands or buts',
     rand_word,
     'George Washington',
-    america_list,
+    'D L R O W',
+    'December November October September August July June May April March February January'
 ]
