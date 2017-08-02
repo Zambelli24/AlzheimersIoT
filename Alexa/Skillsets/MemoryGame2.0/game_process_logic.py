@@ -72,6 +72,7 @@ def pass_question():
     counter_dict['rounds'] += 1
     if (counter_dict['rounds'] == 5):
         output_message = render_template('end')
+
     else:
         output_message = render_template('passMessage')
     return output_message

@@ -22,15 +22,6 @@ def get_season():
     return curr_season
 
 
-def count_backwards():
-    num = 100
-    list = []
-    while num >= 7:
-        num -= 7
-        list.append(str(num))
-    return list
-
-
 def get_random_word():
     list = []
     #file = open('/home/pi/AlzheimersIoT/Alexa/Skillsets/MemoryGame2.0/lexicon.txt', 'r')
@@ -46,6 +37,7 @@ def get_random_word():
 remember_word = "uhh"
 
 okay_list = ['okay', 'ok', 'OK']
+phrase_list = ['no ifs ands or buts', 'no ifs, ands, or buts', 'no ifs ands or butts']
 season = get_season()
 rand_word = get_random_word()
 
@@ -57,7 +49,7 @@ questionList = ["Please remember the word " + rand_word + ". Please respond with
                 'Repeat the phrase: No ifs ands or buts',
                 'Earlier I asked you to remember a word. Can you please say that word for me?',
                 'Who was the first President of the United States?',
-                'Spell the word WORLD backwards.'
+                'Spell the noun WORLD backwards.'
                 ]
 
 # 'I would like you to count backward from 100 by sevens.'
@@ -67,10 +59,10 @@ answerList = [
     okay_list,
     str(curr_year),
     season,
-    curr_month,
+    curr_month.lower(),
     weekday,
-    'no ifs ands or buts',
+    phrase_list,
     rand_word,
     'George Washington',
-    'D L R O W'
+    'DLROW'
 ]
