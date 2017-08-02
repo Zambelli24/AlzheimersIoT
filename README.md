@@ -2,38 +2,50 @@ Alzheimer's IoT Unified Docker Setup Guide:
 ================
 ## Setting Up and Running the Docker Containers
 ### Installing Docker
-The Alzheimer's IoT project leverages Docker to be easily portable and run (essentially) anywhere. Follow the documentation on Docker's website to install Docker on the desired machine: [https://docs.docker.com/engine/installation/](https://docs.docker.com/engine/installation/)
+The Alzheimer's IoT project leverages Docker to be easily portable and run on any pi. This version of the 
+project is made for use on the raspberry pi 3. In order to install docker run this command on the terminal:
+
+```
+curl -sSL https://get.docker.com | sh <install docker>
+```
+
+Since docker-compose does not come with docker on the pi, you must install python pip in order to easily docker-compose.
+Run this command in the terminal:
+
+```
+sudo apt-get -y install python-pip
+```
+
+Finally install docker-compose using this command:
+
+```
+sudo pip install docker-compose
+```
 
 ### Initial Container Build and Database Setup
-To build the base containers and get the project running you will first need to clone the AlzheimersIoT repository onto the destination machine:
+To build the base containers and get the project running you will first need to clone the AlzheimersIoT repository 
+onto the destination machine:
 
 ```
-git clone https://github.com/MoravianCollege/AlzheimersIoT.git
+git clone https://github.com/Zambelli24/AlzheimersIoT.git
 ```
 
-Now, you can start building the initial containers and ultimately start all of the containers by running:
+Now, you can start building the initial containers and ultimately start all of the containers by running after you 
+cd into the AlzheimersIoT directory:
 
 ```
 docker-compose up --build
 ```
 
-This process will likely take a few minutes because this initial run has to pull a lot of base container images from the internet. Subsequent execution times, however, will be a lot quicker.
+This process will likely take a few minutes because this initial run has to pull a lot of base container images from 
+the internet. Subsequent execution times, however, will be a lot quicker.
 
-In it's initial state, the central API does not have the correct database and users, and you will likely see numerous errors from the API container, and any other containers that rely on the API. Fret not, this is expected and easily resolved by running the initialization script. Open up a new terminal window and run:
-
-```
-# Note: Execute this in a new terminal window! 
-
-cd API/
-bash initialize_database_unified.sh
-```
-
-Go back to the terminal window that's running the `docker-compose` command and halt the process by pressing `Crtl` + `C`.
+You can go back to the terminal window that's running the `docker-compose` command and halt the process by pressing `Crtl` + `C`.
 
 Now, you can restart the API as a background process by running:
 
 ```
-docker-compose up
+docker-compose up -d
 ```
 
 ### Starting and Stopping the Containers
@@ -73,10 +85,10 @@ The Alzheimer's IoT project leverages Ngrok to expose parts of the project to th
 A premade configuration file for all of the necessary ngrok tunnels exists on trello. Download the file here: [https://trello.com/c/112xuaDx/77-paid-ngrok-account](https://trello.com/c/112xuaDx/77-paid-ngrok-account)
 
 ### Running Ngrok
-To run ngrok, simply run:
+To run ngrok, simply run in the ngrok directoy:
 
 ```
-/path/to/ngrok start -config /path/to/ngrok.yml --all
+./ngrok start -config ngrok.yml --all
 ```
 
 To run ngrok in the background via `screen`, run:
