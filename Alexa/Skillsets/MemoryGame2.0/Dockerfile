@@ -7,7 +7,9 @@ RUN apt-get install -y build-essential libssl-dev libffi-dev python-dev
 #RUN apt-get install -y python3-pip python3.5
 
 # update the pip3 
-RUN pip3 install --upgrade pip
+#RUN pip3 install --upgrade pip
+RUN pip3 install cryptography==1.9
+RUN pip3 install pyopenssl==17.0
 
 # Get flask-ask
 RUN pip3 install flask-ask requests
